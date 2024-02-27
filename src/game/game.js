@@ -95,9 +95,14 @@ let onGhostCollision = () => {
     lives--;
     restartPacmanAndGhosts();
     if (lives === 0) {
-        document.getElementById("gameOver").style.display = "block";
-        document.getElementById("startButton").style.display = "block";
-        canvas.style.display = "none";
+        canvas.style.opacity = "0";
+        document.getElementById("gameOver").style.opacity = "1";
+        document.getElementById("startButton").style.opacity = "1";
+        setTimeout(() => {
+            document.getElementById("gameOver").style.display = "block";
+            document.getElementById("startButton").style.display = "block";
+            canvas.style.display = "none";
+        }, 500);
     }
 };
 
@@ -264,8 +269,20 @@ let restartGame = () => {
 document.getElementById("startButton").addEventListener("click", () => {
     restartGame()
     startGame();
-    document.getElementById("startButton").style.display = "none";
-    canvas.style.display = "block";
+    document.getElementById("startButton").style.opacity = "0";
+    canvas.style.opacity = "0";
+
+    setTimeout(() => {
+        document.getElementById("gameOver").style.display = "none";
+        document.getElementById("startButton").style.display = "none";
+        canvas.style.display = "block";
+
+        setTimeout(() => {
+            document.getElementById("startButton").style.opacity = "1";
+            document.getElementById("gameOver").style.opacity = "1";
+            canvas.style.opacity = "1";
+        }, 50);
+    }, 500);
 });
 
 window.addEventListener("keydown", handleKeyDown);
